@@ -20,4 +20,4 @@ begin
  ls7_out(2) <= "0"; 
  ls7_out(1) <= "0";
  ls7_out(0) <= "0"; 
-end behave_se10; 
+end behave_ls7; 
