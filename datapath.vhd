@@ -3,26 +3,17 @@ library ieee;
 use ieee.std_logic_1164.all;
 library work;
 
-entity Datapath is
+entity datapath is
   port (
     -- Instruction Register write
+    addr_select : in std_logic_vector(1 downto 0);
     inst_write: in std_logic;
-    -- Program counter write / select
     pc_write: in std_logic;
     pc_in_select: in std_logic_vector(1 downto 0);
-
-    -- Select the two ALU inputs / op_code
-    --alu_op: in std_logic;
-   -- alu_op_select: in std_logic;
     alu1_select: in std_logic_vector(1 downto 0);
     alu2_select: in std_logic_vector(1 downto 0);
-    --alureg_write: in std_logic;
-
-
-    -- Select the correct inputs to memory
-  --addr_select: in std_logic_vector(1 downto 0);
     MEMWRITE: in std_logic;
-    memreg_write: in std_logic;
+    --memreg_write: in std_logic;
 
   t1_sel: in std_logic_vector(1 downto 0);
   t2_sel: in std_logic_vector(1 downto 0);
@@ -35,38 +26,12 @@ entity Datapath is
     reg_write: in std_logic;
     t1_write, t2_write,t3_write, ar_write, PC_en, rd : in std_logic;
 
-    -- Control signals which decide whether or not to set carry flag
-    --set_carry, set_zero: in std_logic;
     carry_en, zero_en: in std_logic;
-
-    -- Choice between input register and feedback
-    --pl_select: in std_logic;
-
-    -- Active signal, if high ADC / ADZ / NDC / NDZ executed
-    pego: out std_logic;
-  CARRY, ZERO: out std_logic;
-   INSTRUCTION: OUT std_logic_vector(15 downto 0) := (others => '0');
-
-    -- Returns whether priority loop input is zero or not
-    --plinput_zero: out std_logic;
-
-    -- Used to transition from S2
   
-    -- choice for input into zero flag
-    --zero_select: in std_logic;
-
-    -- zero flag which is useful for BEQ control
-    --zero_flag: out std_logic;
-
-    -- clock and reset pins, if reset is high, external memory signals
-    -- active.
+    pego: out std_logic;
+    CARRY, ZERO: out std_logic;
+   ir_out: OUT std_logic_vector(15 downto 0) ;   --:= (others => '0');
     clk, reset: in std_logic;
-
-    -- Tells you whether PC will be updated in this instruction
-    --pc_updated: out std_logic;
-
-    -- Data coming from outside
-    
 
 end entity;
 
@@ -161,6 +126,7 @@ architecture behave_dp of Datapath is
   signal pego: std_logic_vector(0 downto 0);
   signal se9_out: std_logic_vector(15 downto 0);
   signal ls7_out: std_logic_vector(15 downto 0);
+  signal INSTRUCTION: std_logic_vector(15 downto 0) ; 
   
 -------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
@@ -257,7 +223,7 @@ begin
   
   CARRY_ENABLE <= carry_en; -- when carry_enable_select = '1' else set_carry;
   ZERO_ENABLE <= zero_en ; --when zero_enable_select = '1' else set_zero;
-
+  ir_out(15 downto 0) <= INSTRUCTION(15 downto 0) ; 
 
   -- Instruction Register and Decoder Port Maps
   IR: dreg
@@ -409,5 +375,6 @@ begin
         clk => clk
       );
   
+
  
 end behave_dp;
