@@ -15,7 +15,7 @@ architecture Behave of dreg is
 begin
   process(clk)
   begin
-    if(clk'event and (clk  = '1')) then
+    if(rising_edge(clk)) then
       if(enable = '1') then
         Dout <= Din;
       end if;
