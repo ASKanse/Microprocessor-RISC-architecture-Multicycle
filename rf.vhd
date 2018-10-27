@@ -25,7 +25,7 @@ begin
 
 process (clk)
 begin 
-	if((clk'event and clk = '1')) then
+	if(rising_edge(clk)) then
 		if (reset = '1') then
 			for i in 0 to 7 loop
 				registers(i) <= "0000000000000000";
