@@ -389,7 +389,7 @@ begin
   LS: ls7
       port map (
         ls7_in => se9_out,
-        ls7_out => ls_out
+        ls7_out => ls7_out
       );
 
 
