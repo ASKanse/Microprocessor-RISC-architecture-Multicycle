@@ -12,7 +12,7 @@ entity memory is
 end entity; 
 
 architecture memory_behave of memory is 
-	type registerFile is array(0 to ((2**16)-1)) of std_logic_vector(15 downto 0);
+	type registerFile is array(0 to ((2**4)-1)) of std_logic_vector(15 downto 0);
 	signal mem_reg: registerFile;
 	begin
 	process(init, wr, Add_in, D_in)
