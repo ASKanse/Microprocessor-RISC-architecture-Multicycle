@@ -1,2 +1,2 @@
 # Microprocessor-RISC-architecture
-yay!
+Multicycle Implementation
