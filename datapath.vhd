@@ -253,7 +253,7 @@ begin
               CONST_0(7 downto 0);
             
 
-  REGDATA_in <= T2_out when rf_d3_sel = "00" else
+  REGDATA_in <= T1_out when rf_d3_sel = "00" else
                 MEM_out when rf_d3_sel = "01" else
                 --ZERO_PAD9 when r egdata_select = "10" else
                 ls7_out when rf_d3_sel = "10" else
