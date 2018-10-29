@@ -60,31 +60,32 @@ component datapath is
     pc_in_select: in std_logic_vector(1 downto 0);
     alu1_select: in std_logic_vector(1 downto 0);
     alu2_select: in std_logic_vector(1 downto 0);
-    alu_op_sel: in std_logic;
+   alu_op_sel: in std_logic;
     MEMWRITE: in std_logic;
+   mem_d_sel: in std_logic;
     --memreg_write: in std_logic;
 
-    t1_sel: in std_logic_vector(1 downto 0);
-    t2_sel: in std_logic_vector(1 downto 0);
-    t3_sel: in std_logic;
-    
+  t1_sel: in std_logic_vector(1 downto 0);
+  t2_sel: in std_logic_vector(1 downto 0);
+  t3_sel: in std_logic;
     -- Choices for Register file
     a1_sel: in std_logic;
     a2_sel: in std_logic;
-    rf_d3_sel: in std_logic_vector(1 downto 0);
+    rf_d3_sel: in std_logic_vector(2 downto 0);
     regwrite_select: in std_logic_vector(1 downto 0);
     reg_write: in std_logic;
-    t1_write, t2_write,t3_write, ar_write, PC_en, rd, mem_d_sel : in std_logic;
+    t1_write, t2_write,t3_write, ar_write, PC_en, rd : in std_logic;
 
     carry_en, zero_en: in std_logic;
   
     pego: out std_logic;
     CARRY, ZERO: out std_logic;
-    ir_out: OUT std_logic_vector(15 downto 0) ;   --:= (others => '0');
+   ir_out: OUT std_logic_vector(15 downto 0) ;   --:= (others => '0');
     
     clk, reset: in std_logic);
 
 end component;
+
 
 component Controller is
   port (
