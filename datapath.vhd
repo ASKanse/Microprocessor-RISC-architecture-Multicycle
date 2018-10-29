@@ -23,7 +23,7 @@ entity datapath is
     -- Choices for Register file
     a1_sel: in std_logic;
     a2_sel: in std_logic;
-    rf_d3_sel: in std_logic_vector(2 downto 0);
+    rf_d3_sel: in std_logic_vector(1 downto 0);
     regwrite_select: in std_logic_vector(1 downto 0);
     reg_write: in std_logic;
     t1_write, t2_write,t3_write, ar_write, PC_en, rd : in std_logic;
@@ -219,11 +219,11 @@ begin
              modpein when T3_sel = '0';
             
 
-  D3 <=         T2_out when rf_d3_sel = "100" else
-                MEM_out when rf_d3_sel = "001" else
-                ls7_out when rf_d3_sel = "010" else
-                PC_out when rf_d3_sel = "011" else
-                T1_out when rf_d3_sel = "000"else
+  D3 <=         T2_out when rf_d3_sel = "01" else
+                --MEM_out when rf_d3_sel = "001" else
+                ls7_out when rf_d3_sel = "10" else
+                PC_out when rf_d3_sel = "11" else
+                T1_out when rf_d3_sel = "00"else
 					 Const_0;
   
 
