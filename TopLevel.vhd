@@ -13,43 +13,43 @@ end entity TopLevel;
 
 architecture Struct of TopLevel is
     -- Instruction Register write
-    inst_write: out std_logic;
+    signal inst_write: std_logic;
 
     -- Program counter write / select
-    pc_write: out std_logic;
-    pc_in_select: out std_logic_vector(1 downto 0);
+    signal pc_write: std_logic;
+    signal pc_in_select: std_logic_vector(1 downto 0);
 
     -- Select the two ALU inputs / op_code
-    alu1_select: out std_logic_vector(1 downto 0);
-    alu2_select: out std_logic_vector(1 downto 0);
+    signal alu1_select: std_logic_vector(1 downto 0);
+    signal alu2_select: std_logic_vector(1 downto 0);
 
     -- Select the correct inputs to memory
-    addr_select: out std_logic_vector(1 downto 0);
-    MEMWRITE: out std_logic;
+    signal addr_select: std_logic_vector(1 downto 0);
+    signal MEMWRITE: std_logic;
     
-    t1_sel: out std_logic_vector(1 downto 0);
-    t2_sel: out std_logic_vector(1 downto 0);
-    t3_sel: out std_logic;
+    signal t1_sel: std_logic_vector(1 downto 0);
+    signal t2_sel: std_logic_vector(1 downto 0);
+    signal t3_sel: std_logic;
 
     -- Choices for Register file
-    a1_sel: out std_logic;
-    a2_sel: out std_logic;
-    rf_d3_sel: out std_logic_vector(2 downto 0);
-    regwrite_select: out std_logic_vector(1 downto 0);
-    reg_write: out std_logic;
-    t1_write, t2_write,t3_write, ar_write, PC_en, rd, alu_op_sel,mem_d_sel : out std_logic;
+    signal a1_sel: std_logic;
+    signal a2_sel: std_logic;
+    signal rf_d3_sel: std_logic_vector(2 downto 0);
+    signal regwrite_select: std_logic_vector(1 downto 0);
+    signal reg_write: std_logic;
+    signal t1_write, t2_write, t3_write, ar_write, PC_en, rd, alu_op_sel,mem_d_sel : std_logic;
 
     -- Control signals which decide whether or not to set carry flag
-    carry_en, zero_en: out std_logic;
+    signal carry_en, zero_en: std_logic;
     
-    pego: in std_logic;
-    CARRY, ZERO: in std_logic;
-    ir_out: in std_logic_vector(15 downto 0);
+    signal pego: std_logic;
+    signal CARRY, ZERO: std_logic;
+    signal ir_out: std_logic_vector(15 downto 0);
 
 
     -- clock and reset pins, if reset is high, external memory signals
     -- active.
-    clk, reset: in std_logic
+    signal clk, reset: std_logic
 
 component datapath is
   port (
@@ -60,26 +60,27 @@ component datapath is
     pc_in_select: in std_logic_vector(1 downto 0);
     alu1_select: in std_logic_vector(1 downto 0);
     alu2_select: in std_logic_vector(1 downto 0);
-   alu_op_sel: in std_logic;
+    alu_op_sel: in std_logic;
     MEMWRITE: in std_logic;
     --memreg_write: in std_logic;
 
-  t1_sel: in std_logic_vector(1 downto 0);
-  t2_sel: in std_logic_vector(1 downto 0);
-  t3_sel: in std_logic;
+    t1_sel: in std_logic_vector(1 downto 0);
+    t2_sel: in std_logic_vector(1 downto 0);
+    t3_sel: in std_logic;
+    
     -- Choices for Register file
     a1_sel: in std_logic;
     a2_sel: in std_logic;
     rf_d3_sel: in std_logic_vector(1 downto 0);
     regwrite_select: in std_logic_vector(1 downto 0);
     reg_write: in std_logic;
-    t1_write, t2_write,t3_write, ar_write, PC_en, rd : in std_logic;
+    t1_write, t2_write,t3_write, ar_write, PC_en, rd, mem_d_sel : in std_logic;
 
     carry_en, zero_en: in std_logic;
   
     pego: out std_logic;
     CARRY, ZERO: out std_logic;
-   ir_out: OUT std_logic_vector(15 downto 0) ;   --:= (others => '0');
+    ir_out: OUT std_logic_vector(15 downto 0) ;   --:= (others => '0');
     
     clk, reset: in std_logic);
 
@@ -165,6 +166,8 @@ CP: Controller
     clk => clk,
     reset => reset
     );
+
+    
 DP: Datapath
     port map (
     inst_write => inst_write,
