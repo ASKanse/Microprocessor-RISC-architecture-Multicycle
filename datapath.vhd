@@ -169,7 +169,8 @@ begin
   ALU2_in <= CONST_1 when alu2_select = "00" else
              T2_out when alu2_select = "01" else
              se6_out when alu2_select = "10" else
-             se9_out when alu2_select = "11";
+             se9_out when alu2_select = "11" else
+             CONST_0;
              
 
   ALU_opcode <= INSTRUCTION(15 downto 12) when alu_op_sel = '1' else
@@ -183,27 +184,32 @@ begin
                 --external_addr when reset = '1' else
 
   MEMDATA_in <= T2_out when mem_d_sel = '1' else
-					 T1_out when mem_d_sel = '0';
+		T1_out when mem_d_sel = '0' else
+                CONST_0;
   
   
   -- Program Counter Dataflow logic
   PC_in <= CONST_0 when pc_in_select = "00" else                                                     -- check this 1
            r7pc when pc_in_select = "01" else
            ALU_out when pc_in_select = "11" else
-           D1 when pc_in_select = "10";
+           D1 when pc_in_select = "10" else
+           CONST_0;
 
   -- Register File Dataflow
   A1 <= INSTRUCTION(11 downto 9) when a1_sel = '0' else
-          INSTRUCTION(8 downto 6) when a1_sel = '1';
+        INSTRUCTION(8 downto 6) when a1_sel = '1' else
+        CONST_0(2 downto 0);
 
   A2 <= INSTRUCTION(8 downto 6) when a2_sel = '0' else
-           peout  when a2_sel = '1';
+        peout  when a2_sel = '1' else
+        CONST_0(2 downto 0);
            
 
   A3 <= INSTRUCTION(5 downto 3) when regwrite_select = "00" else         
-            INSTRUCTION(11 downto 9) when regwrite_select = "01" else
-            INSTRUCTION(8 downto 6) when regwrite_select = "10" else
-            AR_out(2 downto 0) when regwrite_select = "11";
+        INSTRUCTION(11 downto 9) when regwrite_select = "01" else
+        INSTRUCTION(8 downto 6) when regwrite_select = "10" else
+            AR_out(2 downto 0) when regwrite_select = "11" else
+             CONST_0(2 downto 0);
 
   DATA_T1 <= D1 when T1_sel = "00" else
              MEM_out when T1_sel = "01" else
@@ -216,7 +222,8 @@ begin
               CONST_0;
 
   DATA_T3 <= INSTRUCTION(7 downto 0) when T3_sel = '1' else
-             modpein when T3_sel = '0';
+             modpein when T3_sel = '0' else
+             CONST_0(7 downto 0);
             
 
   D3 <=         T2_out when rf_d3_sel = "01" else
