@@ -34,7 +34,7 @@ architecture Struct of TopLevel is
     -- Choices for Register file
     signal a1_sel: std_logic;
     signal a2_sel: std_logic;
-    signal rf_d3_sel: std_logic_vector(2 downto 0);
+    signal rf_d3_sel: std_logic_vector(1 downto 0);
     signal regwrite_select: std_logic_vector(1 downto 0);
     signal reg_write: std_logic;
     signal t1_write, t2_write, t3_write, ar_write, PC_en, rd, alu_op_sel,mem_d_sel : std_logic;
@@ -71,7 +71,7 @@ component datapath is
     -- Choices for Register file
     a1_sel: in std_logic;
     a2_sel: in std_logic;
-    rf_d3_sel: in std_logic_vector(2 downto 0);
+    rf_d3_sel: in std_logic_vector(1 downto 0);
     regwrite_select: in std_logic_vector(1 downto 0);
     reg_write: in std_logic;
     t1_write, t2_write,t3_write, ar_write, PC_en, rd : in std_logic;
@@ -111,7 +111,7 @@ component Controller is
     -- Choices for Register file
     a1_sel: out std_logic;
     a2_sel: out std_logic;
-    rf_d3_sel: out std_logic_vector(2 downto 0);
+    rf_d3_sel: out std_logic_vector(1 downto 0);
     regwrite_select: out std_logic_vector(1 downto 0);
     reg_write: out std_logic;
     t1_write, t2_write,t3_write, ar_write, PC_en, rd, alu_op_sel,mem_d_sel : out std_logic;
