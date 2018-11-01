@@ -29,7 +29,10 @@ entity datapath is
     t1_write, t2_write,t3_write, ar_write, PC_en, rd : in std_logic;
 
     carry_en, zero_en: in std_logic;
-	  clk, reset: in std_logic;
+    clk, reset: in std_logic;
+    pe_out: out std_logic_vector(2 downto 0);
+    mod_pein: out std_logic_vector(7 downto 0);	  
+	  
   
     pego: out std_logic;
     CARRY, ZERO: out std_logic;
@@ -142,7 +145,10 @@ component pr_encoder is
 	port( pein : in std_logic_vector (7 downto 0);
 		  peout: out std_logic_vector(2 downto 0);
 		  modpein: out std_logic_vector (7 downto 0);
-		  pego: out std_logic);
+		  pego : out std_logic;
+	          pe_out: out std_logic_vector(2 downto 0);
+		  mod_pein: out std_logic_vector (7 downto 0)
+	    );
 end component;
 
 component rf is 
@@ -401,7 +407,9 @@ begin
         pein => T3_out,
         peout => peout,
         modpein => modpein,
-        pego => pego
+        pego => pego,
+	mod_pein => mod_pein,
+	pe_out => pe_out
       );
 
     AR: dreg
