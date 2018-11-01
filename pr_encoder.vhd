@@ -20,7 +20,7 @@ architecture enc_behave of pr_encoder is
 signal mp : std_logic_vector (7 downto 0);
 signal po : std_logic_vector(2 downto 0);
 begin
-process (pein) 
+process (pein,mp,po) 
 begin
    mp <= pein;
 	if(pein(7) = '1') then
